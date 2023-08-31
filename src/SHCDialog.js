@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Button from "@mui/material/Button";
+import {TextareaAutosize} from "@mui/material";
 export default function SHCDialog(props) {
     const { onClose, shcValue, open } = props;
 
@@ -43,7 +44,8 @@ export default function SHCDialog(props) {
     return (
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle>Validate SHC QR</DialogTitle>
-            {shcValue}
+            <TextareaAutosize defaultValue={shcValue}></TextareaAutosize>
+        
             <Button variant="outlined" onClick={handleCopyRequest}>Copy SHC</Button>
             <Button variant="outlined" onClick={handleValidateRequest}>Validate</Button>
             <Button variant="contained" onClick={handleClose}>Close</Button>

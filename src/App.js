@@ -37,6 +37,7 @@ function App() {
                 }
                 onError={(error) => console.log(error?.message)}
             />
+            Hey you. Put your SHC QR code in the box until a dialog appears.
         </div>
         <SHCDialog open={shcDialogOpen}
                    onClose={handleSHCDialogClose}
