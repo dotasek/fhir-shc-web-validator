@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import {QrScanner} from '@yudiel/react-qr-scanner';
 
 function App() {
   return (
@@ -18,6 +19,13 @@ function App() {
           Learn React
         </a>
       </header>
+        <div className="QR-widget">
+            <QrScanner
+                onDecode={(result) => console.log(result)}
+                onError={(error) => console.log(error?.message)}
+            />
+        </div>
+
     </div>
   );
 }
