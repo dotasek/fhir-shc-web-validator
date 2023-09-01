@@ -2,9 +2,13 @@ import PropTypes from 'prop-types';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Button from "@mui/material/Button";
-import {TextareaAutosize} from "@mui/material";
+import {CircularProgress, TextareaAutosize} from "@mui/material";
+import * as React from "react";
 export default function SHCDialog(props) {
     const { onClose, shcValue, open } = props;
+
+    const [inProgress, setInProgress] = React.useState(false);
+
 
     const handleClose = () => {
         onClose(null);
@@ -36,16 +40,21 @@ export default function SHCDialog(props) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(buildRequest(shcValue))
         };
+        setInProgress(true);
         fetch('http://0.0.0.0:8082/validate', requestOptions)
             .then(response => response.json())
-            .then(data => onClose(data.outcomes));
+            .then(data => {
+                setInProgress(false);
+                onClose(data.outcomes);
+            });
     }
 
     return (
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle>Validate SHC QR</DialogTitle>
-            <TextareaAutosize defaultValue={shcValue}></TextareaAutosize>
-        
+            <TextareaAutosize defaultValue={shcValue} disabled={true}></TextareaAutosize>
+            { inProgress &&  ( <CircularProgress /> ) }
+
             <Button variant="outlined" onClick={handleCopyRequest}>Copy SHC</Button>
             <Button variant="outlined" onClick={handleValidateRequest}>Validate</Button>
             <Button variant="contained" onClick={handleClose}>Close</Button>
