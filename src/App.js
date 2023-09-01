@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {QrScanner} from '@yudiel/react-qr-scanner';
-import Button from '@mui/material/Button';
+
 import SHCDialog from './SHCDialog'
 import * as React from 'react';
 import ValidationResultsDialog from "./ValidationResultsDialog";
@@ -11,6 +11,7 @@ function App() {
 
     const [shcString, setShcString] = React.useState("");
     const [validationResults, setValidationResults] = React.useState({})
+    const [sessionId, setSessionId] = React.useState(null)
     const handleQRDecode = (value) => {
         setShcString(value);
         setShcDialogOpen(true);
@@ -22,7 +23,7 @@ function App() {
 
     const handleSHCDialogClose = (value) => {
         if (value) {
-            console.log("Results: " + JSON.stringify(value));
+            setSessionId(value.sessionId)
             setValidationResults(value)
             setValidationResultsDialogOpen(true);
         }
@@ -41,6 +42,7 @@ function App() {
         </div>
         <SHCDialog open={shcDialogOpen}
                    onClose={handleSHCDialogClose}
+                   sessionId={sessionId}
                    shcValue={shcString}
                    setValidationResults={setValidationResults}
         ></SHCDialog>

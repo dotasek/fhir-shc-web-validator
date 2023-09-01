@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import {CircularProgress, TextareaAutosize} from "@mui/material";
 import * as React from "react";
 export default function SHCDialog(props) {
-    const { onClose, shcValue, open } = props;
+    const { onClose, shcValue, open, sessionId } = props;
 
     const [inProgress, setInProgress] = React.useState(false);
 
@@ -26,7 +26,8 @@ export default function SHCDialog(props) {
                     "fileContent": shcValue,
                     "fileType": "shc"
                 }
-            ]
+            ],
+            "sessionId": sessionId
         }
     }
 
@@ -45,7 +46,7 @@ export default function SHCDialog(props) {
             .then(response => response.json())
             .then(data => {
                 setInProgress(false);
-                onClose(data.outcomes);
+                onClose(data);
             });
     }
 
@@ -53,7 +54,12 @@ export default function SHCDialog(props) {
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle>Validate SHC QR</DialogTitle>
             <TextareaAutosize defaultValue={shcValue} disabled={true}></TextareaAutosize>
-            { inProgress &&  ( <CircularProgress /> ) }
+            { inProgress && (
+                <div>
+                <CircularProgress />
+                    Validation in Progress...
+            </div>
+            ) }
 
             <Button variant="outlined" onClick={handleCopyRequest}>Copy SHC</Button>
             <Button variant="outlined" onClick={handleValidateRequest}>Validate</Button>
@@ -65,5 +71,6 @@ export default function SHCDialog(props) {
 SHCDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
-    shcValue: PropTypes.string.isRequired
+    shcValue: PropTypes.string.isRequired,
+    sessionId : PropTypes.string.isRequired
 };
