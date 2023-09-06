@@ -42,7 +42,7 @@ export default function SHCDialog(props) {
             body: JSON.stringify(buildRequest(shcValue))
         };
         setInProgress(true);
-        fetch('http://0.0.0.0:8082/validate', requestOptions)
+        fetch('https://validator.fhir.org/validate', requestOptions)
             .then(response => response.json())
             .then(data => {
                 setInProgress(false);
