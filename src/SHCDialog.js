@@ -2,16 +2,27 @@ import PropTypes from 'prop-types';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import Button from "@mui/material/Button";
-import {CircularProgress, TextareaAutosize} from "@mui/material";
+import {
+    Checkbox,
+    CircularProgress,
+    DialogActions,
+    DialogContent,
+    TextareaAutosize
+} from "@mui/material";
 import * as React from "react";
+
 export default function SHCDialog(props) {
     const { onClose, shcValue, open, sessionId } = props;
 
     const [inProgress, setInProgress] = React.useState(false);
-
+    const [agreeToSend, setAgreeToSend] = React.useState(false);
 
     const handleClose = () => {
         onClose(null);
+    }
+
+    const handleAgreementChange = () => {
+        setAgreeToSend(!agreeToSend)
     }
 
     const buildRequest = (shcValue) => {
@@ -36,6 +47,9 @@ export default function SHCDialog(props) {
     }
 
     const handleValidateRequest = () => {
+        if (!agreeToSend) {
+            return;
+        }
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -53,17 +67,33 @@ export default function SHCDialog(props) {
     return (
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle>Validate SHC QR</DialogTitle>
-            <TextareaAutosize defaultValue={shcValue} disabled={true}></TextareaAutosize>
-            { inProgress && (
+            <DialogContent sx={{ textAlign: "center"}}>
+                <p><TextareaAutosize defaultValue={shcValue} disabled={true} multiline={"true"} maxRows={10} ></TextareaAutosize>
+                </p>
+                <p>
+                <Button variant="outlined" onClick={handleCopyRequest}>Copy SHC</Button>
+                </p>
                 <div>
-                <CircularProgress />
-                    Validation in Progress...
-            </div>
-            ) }
+                <Checkbox
+                    checked={agreeToSend}
+                    onChange={handleAgreementChange}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                />
+                    The data I am sending is non-confidential and for demonstration or testing purposes. I acknowledge that this data may be logged for evaluation purposes.
+                </div>
 
-            <Button variant="outlined" onClick={handleCopyRequest}>Copy SHC</Button>
-            <Button variant="outlined" onClick={handleValidateRequest}>Validate</Button>
-            <Button variant="contained" onClick={handleClose}>Close</Button>
+                { inProgress && (
+                    <div>
+                    <CircularProgress /><br/>
+                        Validation in Progress...
+                    </div>
+                ) }
+
+            </DialogContent>
+            <DialogActions>
+                <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+                <Button variant="contained" onClick={handleValidateRequest} disabled={!agreeToSend}>Validate</Button>
+            </DialogActions>
         </Dialog>
     )
 }
