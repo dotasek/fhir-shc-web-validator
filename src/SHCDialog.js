@@ -92,7 +92,7 @@ export default function SHCDialog(props) {
             </DialogContent>
             <DialogActions>
                 <Button variant="outlined" onClick={handleClose}>Cancel</Button>
-                <Button variant="contained" onClick={handleValidateRequest} disabled={!agreeToSend}>Validate</Button>
+                <Button variant="contained" onClick={handleValidateRequest} disabled={ !agreeToSend || inProgress }>Validate</Button>
             </DialogActions>
         </Dialog>
     )
