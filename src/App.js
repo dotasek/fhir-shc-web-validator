@@ -38,7 +38,8 @@ function App() {
                 }
                 onError={(error) => console.log(error?.message)}
             />
-            Hey you. Put your SHC QR code in the box until a dialog appears.
+            Use your webcam to capture your QR code in the box.<br/>
+            You may need to enable webcam access through your browser. Webcam options vary by browser, and some are more compatible than others.
         </div>
         <SHCDialog open={shcDialogOpen}
                    onClose={handleSHCDialogClose}
