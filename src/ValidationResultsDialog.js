@@ -33,8 +33,7 @@ export default function ValidationResultsDialog(props) {
                 (validationResults && validationResults.outcomes ) &&
                 <List> {
                 validationResults.outcomes[0].issues.map( (issue) => {
-                        console.log("Hey hey hey:" + issue)
-                        return <ListItem>
+                        return <ListItem key={validationResults.outcomes[0].issues.indexOf(issue)}>
                             <ListItemIcon>
                                 { getIconForIssueLevel(issue.level)}
                             </ListItemIcon>
