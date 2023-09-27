@@ -10,6 +10,7 @@ import {
     TextareaAutosize
 } from "@mui/material";
 import * as React from "react";
+import { config } from './constants'
 
 export default function SHCDialog(props) {
     const { onClose, shcValue, open, sessionId } = props;
@@ -56,7 +57,7 @@ export default function SHCDialog(props) {
             body: JSON.stringify(buildRequest(shcValue))
         };
         setInProgress(true);
-        fetch('https://validator.fhir.org/validate', requestOptions)
+        fetch(`${config.url.API_URL}/validate`, requestOptions)
             .then(response => response.json())
             .then(data => {
                 setInProgress(false);
