@@ -36,7 +36,8 @@ function App() {
         setValidationResults(null);
     }
   return (
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1
+      }}>
           <AppBar position="static">
 
               <Toolbar>
@@ -51,17 +52,36 @@ function App() {
           </AppBar>
         {
             !validationResults
-                ? <div className="QR-widget">
+                ? <Box  sx={{
+                   alignItems : 'center',
+                   justifyContent : 'center'
+                }}
+
+
+                >   <Box
+                    sx={{
+                        margin: 'auto',
+                    width: 1 / 2,
+                    height: 1 / 2,
+                }}>
+                    <Typography variant="h5"  sx={{ flexGrow: 1,
+                        'text-align': 'center'}}>
+                        Use your webcam to capture your QR code in the box.
+                    </Typography>
                     <QrScanner
                         onDecode={(result) =>
                             handleQRDecode(result)
                         }
                         onError={(error) => console.log(error?.message)}
                     />
-                    Use your webcam to capture your QR code in the box.<br/>
-                    You may need to enable webcam access through your browser. Webcam options vary by browser, and some are
-                    more compatible than others.
-                    </div>
+                    <Typography variant="h6"  sx={{ flexGrow: 1,
+                        'text-align': 'center'}}>
+                        You may need to enable webcam access through your browser. Webcam options vary by browser, and some are
+                        more compatible than others.
+                    </Typography>
+
+                </Box>
+                    </Box>
                 : <ValidationResultsComponent validationResults={validationResults}>
                 </ValidationResultsComponent>}
         <SHCDialog open={shcDialogOpen}
