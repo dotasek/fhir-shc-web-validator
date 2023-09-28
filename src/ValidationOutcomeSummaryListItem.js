@@ -1,7 +1,7 @@
 import {ListItem, ListItemText} from "@mui/material";
 
 export default function ValidationOutcomeSummaryListItem(props) {
-    const {index, outcome} = props;
+    const {index, outcome, onClick} = props;
 
     function getIssuesSummary() {
         let errorCount= 0;
@@ -15,7 +15,7 @@ export default function ValidationOutcomeSummaryListItem(props) {
         return `Errors: ${errorCount}, Warnings: ${warningCount}, Info: ${infoCount}`;
     }
 
-    return <ListItem key={index}>
+    return <ListItem key={index} onClick={onClick}>
         <ListItemText primary={outcome.fileInfo.fileName} secondary={getIssuesSummary()}/>
     </ListItem>;
 }
