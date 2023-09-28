@@ -7,7 +7,7 @@ import * as React from 'react';
 import ValidationResultsComponent from "./ValidationResultsComponent";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import {AppBar, Box, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, createTheme, IconButton, ThemeProvider, Toolbar, Typography} from "@mui/material";
 
 function App() {
     const [shcDialogOpen, setShcDialogOpen] = React.useState(false);
@@ -20,7 +20,13 @@ function App() {
         setShcDialogOpen(true);
     }
 
-
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: "#eb2229"
+            }
+        }
+    });
 
     const handleSHCDialogClose = (value) => {
         if (value) {
@@ -34,6 +40,7 @@ function App() {
         setValidationResults(null);
     }
   return (
+      <ThemeProvider theme={theme}>
       <Box sx={{
           flexGrow: 1
       }}>
@@ -94,6 +101,7 @@ function App() {
                      setValidationResults={setValidationResults}
           ></SHCDialog>
       </Box>
+      </ThemeProvider>
   );
 }
 
