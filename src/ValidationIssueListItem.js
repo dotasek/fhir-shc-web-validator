@@ -1,4 +1,4 @@
-import {ListItem, ListItemIcon, ListItemText} from "@mui/material";
+import {ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import ReportIcon from "@mui/icons-material/Report";
 import ErrorIcon from "@mui/icons-material/Error";
 import WarningIcon from "@mui/icons-material/Warning";
@@ -18,9 +18,11 @@ export default function ValidationIssueListItem(props) {
 
     }
     return <ListItem key={index} onClick={onClick}>
+        <ListItemButton>
         <ListItemIcon>
             { getIconForIssueLevel(issue.level)}
         </ListItemIcon>
         <ListItemText>{issue.message}</ListItemText>
+        </ListItemButton>
     </ListItem>;
 }

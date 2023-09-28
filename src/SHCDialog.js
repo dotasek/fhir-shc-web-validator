@@ -7,12 +7,14 @@ import {
     Checkbox,
     CircularProgress,
     DialogActions,
-    DialogContent, IconButton,
-    TextareaAutosize
+    DialogContent, IconButton, Stack,
+    TextareaAutosize, Typography
 } from "@mui/material";
 import * as React from "react";
 import { config } from './constants'
 import CloseIcon from "@mui/icons-material/Close";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 export default function SHCDialog(props) {
     const { onClose, shcValue, open, sessionId } = props;
@@ -71,7 +73,7 @@ export default function SHCDialog(props) {
         <Dialog onClose={handleClose} open={open}>
             <DialogTitle>
                 <Box display="flex" alignItems="center">
-                    <Box flexGrow={1} >Validated SHC QR</Box>
+                    <Box flexGrow={1} >QR SHC Value</Box>
                     <Box>
                         <IconButton onClick={handleClose}>
                         <CloseIcon />
@@ -80,26 +82,31 @@ export default function SHCDialog(props) {
                 </Box>
             </DialogTitle>
             <DialogContent sx={{ textAlign: "center"}}>
-                <p><TextareaAutosize defaultValue={shcValue} disabled={true} multiline={"true"} maxRows={10} ></TextareaAutosize>
-                </p>
-                <p>
-                <Button variant="outlined" onClick={handleCopyRequest}>Copy SHC</Button>
-                </p>
-                <div>
+                <Stack spacing={2}>
+                <TextareaAutosize defaultValue={shcValue} disabled={true} multiline={"true"} maxRows={10}
+                                  style={{ width: "100%" }}
+                ></TextareaAutosize>
+
+                <Stack direction="row" spacing={2}>
+
                 <Checkbox
                     checked={agreeToSend}
                     onChange={handleAgreementChange}
                     inputProps={{ 'aria-label': 'controlled' }}
+                    style={{verticalAlign: "top"}}
                 />
+                    <Typography sx={{textAlign: "left"}}>
                     The data I am sending is non-confidential and for demonstration or testing purposes. I acknowledge that this data may be logged for evaluation purposes.
-                </div>
-
+                    </Typography>
+                    </Stack>
+                </Stack>
             </DialogContent>
             <DialogActions>
-                { inProgress
-                    ? <Box>Validating...<CircularProgress /></Box>
-                :   <Button variant="contained" onClick={handleValidateRequest} disabled={ !agreeToSend || inProgress }>Validate</Button>
-                }
+                <Button variant="outlined" onClick={handleCopyRequest} startIcon={ <ContentCopyIcon/> }>Copy SHC</Button>
+                  <Button variant="contained" onClick={handleValidateRequest} disabled={ !agreeToSend || inProgress }
+                        startIcon={ inProgress ? <CircularProgress size={24}/> : <PlayArrowIcon/> }
+                    >Validate</Button>
+
             </DialogActions>
         </Dialog>
     )

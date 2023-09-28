@@ -44,7 +44,10 @@ function App() {
       <Box sx={{
           flexGrow: 1
       }}>
-          <AppBar position="static">
+          <AppBar position="static" sx={{
+              backgroundColor: 'white',
+              color: '#eb2229'
+          }}>
               <Toolbar>
                   {validationResults &&
                       <IconButton aria-label="back-to-scanner" onClick={handleBack}>
