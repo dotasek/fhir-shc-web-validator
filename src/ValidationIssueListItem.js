@@ -5,7 +5,7 @@ import WarningIcon from "@mui/icons-material/Warning";
 import InfoIcon from "@mui/icons-material/Info";
 
 export default function ValidationIssueListItem(props) {
-    const {index, issue} = props;
+    const {index, issue, onClick} = props;
 
     function getIconForIssueLevel(type) {
         switch (type) {
@@ -17,7 +17,7 @@ export default function ValidationIssueListItem(props) {
         }
 
     }
-    return <ListItem key={index}>
+    return <ListItem key={index} onClick={onClick}>
         <ListItemIcon>
             { getIconForIssueLevel(issue.level)}
         </ListItemIcon>
