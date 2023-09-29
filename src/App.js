@@ -7,7 +7,7 @@ import * as React from 'react';
 import ValidationResultsComponent from "./ValidationResultsComponent";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
-import {AppBar, Box, createTheme, IconButton, ThemeProvider, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, createTheme, IconButton, Stack, ThemeProvider, Toolbar, Typography} from "@mui/material";
 
 function App() {
     const [shcDialogOpen, setShcDialogOpen] = React.useState(false);
@@ -68,15 +68,17 @@ function App() {
                       alignItems: 'center',
                       justifyContent: 'center'
                   }}>
-                      <Box
+                      <Stack
                       sx={{
                           margin: 'auto',
                           width: 1 / 2,
                           height: 1 / 2,
+
                       }}>
                       <Typography variant="h5" sx={{
                           flexGrow: 1,
-                          textAlign: 'center'
+                          textAlign: 'center',
+                         p: 2
                       }}>
                           Use your webcam to capture your QR code in the box.
                       </Typography>
@@ -88,12 +90,13 @@ function App() {
                       />
                       <Typography variant="h6" sx={{
                           flexGrow: 1,
-                          textAlign: 'center'
+                          textAlign: 'center',
+                          p: 2
                       }}>
                           You may need to enable webcam access through your browser. Webcam options vary by browser, and
                           some are more compatible than others.
                       </Typography>
-                  </Box>
+                  </Stack>
                   </Box>
                   : <ValidationResultsComponent validationResults={validationResults}>
                   </ValidationResultsComponent>}

@@ -4,7 +4,7 @@ import Dialog from '@mui/material/Dialog';
 import CloseIcon from '@mui/icons-material/Close';
 import {
     Box,
-    DialogContent, Grid, IconButton, List
+    DialogContent, Grid, IconButton, List, Typography
 } from "@mui/material";
 import * as React from "react";
 import ValidationIssueListItem from "./ValidationIssueListItem";
@@ -38,7 +38,9 @@ export default function ValidatedFragmentDialog(props) {
         <Dialog onClose={handleClose} open={open} fullWidth={true} maxWidth={80}>
             <DialogTitle>
                 <Box display="flex" alignItems="center">
-                    <Box flexGrow={1} > Validated Fragment </Box>
+                    <Box flexGrow={1} >
+                       <Typography variant="h5" >Validated Fragment</Typography>
+                    </Box>
                     <Box>
                         <IconButton onClick={handleClose}><CloseIcon /></IconButton>
                     </Box>
@@ -48,6 +50,11 @@ export default function ValidatedFragmentDialog(props) {
             <DialogContent >
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
+                        <Typography variant="h6" sx={{
+                            paddingBottom: 1
+                        }}>
+                            Content
+                        </Typography>
                         <AceEditor
                             mode="json"
                             theme="github"
@@ -70,6 +77,11 @@ export default function ValidatedFragmentDialog(props) {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Box>
+                            <Typography variant="h6" sx={{
+                                paddingBottom: 1
+                            }}>
+                                Issues
+                            </Typography>
                             <List> {
                                 validatedFragment.issues.map( (issue) => {
                                     return <ValidationIssueListItem index={validatedFragment.issues.indexOf(issue)} issue={issue} onClick={ () => onIssueClick(issue)}/>
