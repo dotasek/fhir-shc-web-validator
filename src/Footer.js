@@ -1,8 +1,7 @@
 
 import BugReportIcon from '@mui/icons-material/BugReport';
-import ArticleIcon from '@mui/icons-material/Article';
 import {
-    Box, createSvgIcon, Grid, Link, Stack, SvgIcon,
+    Grid, Link, Stack, SvgIcon,
     Typography
 } from "@mui/material";
 
@@ -13,7 +12,7 @@ import {ReactComponent as GitHubLogo } from "./images/github_white.svg";
 
 export default function Footer(props) {
 
-    const [validatorVersion, setValidatorVersion] = React.useState("unknown");
+    const [validatorVersion, setValidatorVersion] = React.useState("?.?.?");
 
     useEffect(() => {
         const requestOptions = {
@@ -24,7 +23,9 @@ export default function Footer(props) {
             .then(response => response.json())
             .then(data => {
                 setValidatorVersion( data)
-            });
+            }).catch((err) => {
+            console.log(err.message);
+        });;
     }, []);
 
     return (
@@ -43,7 +44,7 @@ export default function Footer(props) {
             </Typography>
         </Grid>
         <Grid item xs={4} >
-            <Link href="#" underline="none" color="inherit">
+            <Link href="https://github.com/HL7/fhir-shc-web-validator" underline="none" color="inherit">
             <Stack direction="row" spacing={1} sx={{alignItems: "center"}}>
                 <SvgIcon component={GitHubLogo} height={18} />
                 <Typography variant="h6" sx={{
@@ -53,7 +54,7 @@ export default function Footer(props) {
             </Typography>
             </Stack>
         </Link>
-            <Link href="#" underline="none" color="inherit">
+            <Link href="https://github.com/HL7/fhir-shc-web-validator/issues" underline="none" color="inherit">
                 <Stack direction="row" spacing={1} sx={{alignItems: "center"}}>
 
                 <BugReportIcon height={18}/>
